@@ -1,4 +1,15 @@
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
+
+// @/components/app-tabs dosyasının içi
+import { Tabs } from 'expo-router';
+
+export default function AppTabs() {
+  return (
+    <Tabs 
+      screenOptions={{ 
+        tabBarStyle: { display: 'none' } // Alt sekme çubuğunu gizler
+      }}
+    >
+      {/* import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { useColorScheme } from 'react-native';
 
 import { Colors } from '@/constants/theme';
@@ -28,5 +39,8 @@ export default function AppTabs() {
         />
       </NativeTabs.Trigger>
     </NativeTabs>
+  );
+}/> */}
+    </Tabs>
   );
 }
