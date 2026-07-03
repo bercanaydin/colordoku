@@ -28,6 +28,12 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
     fontWeight: '500',
   },
+  bestTimeText: {
+  fontSize: 12,
+  color: '#4ade80', // Başarı hissi vermesi için yumuşak bir yeşil
+  fontWeight: '500',
+  marginTop: -2,
+},
   // --- MENU ---
   settingsIcon: { position: 'absolute', top: 40, right: 20, padding: 12, backgroundColor: '#18181b', borderRadius: 30 },
   menuContent: { width: '100%', maxWidth: 340, alignItems: 'center', gap: 40 },
@@ -41,7 +47,7 @@ export const styles = StyleSheet.create({
   menuButton: { width: '100%', paddingVertical: 16, backgroundColor: '#18181b', borderWidth: 1, borderColor: '#27272a', borderRadius: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12 },
   menuButtonText: { fontSize: 18, fontWeight: '500', color: '#e4e4e7' },
   disabledButton: { opacity: 0.5 },
-  loadingOverlay: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(9, 9, 11, 0.8)', zIndex: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 16, gap: 12 },
+  loadingOverlay: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(9, 9, 11, 0.3)', zIndex: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 16, gap: 12 },
   loadingText: { color: '#d4d4d8', fontSize: 14, fontWeight: '500' },
   fullScreenLoader: { flex: 1, backgroundColor: 'rgba(9, 9, 11, 0.85)', justifyContent: 'center', alignItems: 'center', gap: 16 },
 
@@ -70,7 +76,7 @@ export const styles = StyleSheet.create({
   rightHeaderControls: { flexDirection: 'row', gap: 8 },
 
   // --- BOARD ---
-  boardContainer: { width: BOARD_SIZE, height: BOARD_SIZE, backgroundColor: '#18181b', padding: 10, borderRadius: 16, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignContent: 'space-between', borderWidth: 1, borderColor: '#27272a' },
+  boardContainer: { width: BOARD_SIZE, height: BOARD_SIZE, backgroundColor: '#18181b', padding: 5, borderRadius: 16, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignContent: 'space-between', borderWidth: 2, borderColor: '#27272a' },
   block: { width: '32%', height: '32%', backgroundColor: '#27272a', borderRadius: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', alignContent: 'space-evenly', overflow: 'hidden' },
   cell: { width: '31%', height: '31%', borderRadius: 4, justifyContent: 'center', alignItems: 'center' },
   fixedDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'rgba(0,0,0,0.4)' },

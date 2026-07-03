@@ -48,11 +48,17 @@
       [
         "expo-navigation-bar",
         {
-          "backgroundColor": "#18181b",
-          "style": "light"
+          "backgroundColor": "#000000",
+          "style": "dark"
         }
       ],
-    
+     [
+      "react-native-google-mobile-ads",
+      {
+        "androidAppId": "ca-app-pub-7345089833984227~2159323692",
+        "iosAppId": "ca-app-pub-7345089833984227~2159323692"
+      }
+    ],
       [
         "expo-build-properties",
         {

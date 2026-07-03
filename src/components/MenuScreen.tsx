@@ -1,22 +1,42 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
-import { Play, Settings } from 'lucide-react-native';
+import { Play, Settings, Info } from 'lucide-react-native';
 import { styles } from '../styles';
 import { COLORS } from '../constants/constants';
+import { formatTime } from '../constants/gameLogic'; // YENİ EKLENDİ
+import {printmes} from  '../app/index';
 
 interface MenuScreenProps {
   generateGame: (diff: string) => void;
   isGenerating: boolean;
   onOpenSettings: () => void;
+  onOpenCredits: () => void;
+  bestTimes: Record<string, number | null>; // YENİ EKLENDİ
 }
 
-export default function MenuScreen({ generateGame, isGenerating, onOpenSettings }: MenuScreenProps) {
+export default function MenuScreen({ 
+  generateGame, 
+  isGenerating, 
+  onOpenSettings, 
+  onOpenCredits,
+  bestTimes // YENİ EKLENDİ
+}: MenuScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#09090b" />
-      <TouchableOpacity style={styles.settingsIcon} onPress={onOpenSettings} disabled={isGenerating}>
-        <Settings color="#71717a" size={24} />
-      </TouchableOpacity>
+      <View style={{ position: 'absolute', top: 40, right: 20, flexDirection: 'row', gap: 12, zIndex: 10 }}>
+        
+        {/* Credits İkonu */}
+        <TouchableOpacity style={{ padding: 1, backgroundColor: '#18181b', borderRadius: 30 }} onPress={onOpenCredits} disabled={isGenerating}>
+          <Info color="#4ade80" size={24} />
+        </TouchableOpacity>
+
+        {/* Ayarlar İkonu */}
+        <TouchableOpacity style={{ padding: 1, backgroundColor: '#18181b', borderRadius: 30 }} onPress={onOpenSettings} disabled={isGenerating}>
+          <Settings color="#f87171" size={24} />
+        </TouchableOpacity>
+        
+      </View>
       <View style={styles.menuContent}>
         <View style={styles.titleContainer}>
           <View style={styles.titleColorsRow}>
@@ -28,6 +48,9 @@ export default function MenuScreen({ generateGame, isGenerating, onOpenSettings 
             Color<Text style={styles.titleTextBold}>doku</Text>
           </Text>
           <Text style={styles.subtitleText}>Logic puzzle with colors</Text>
+          <TouchableOpacity onPress={() => printmes('menu')} style={styles.resBtnSecondary}>
+                            <Text style={styles.resBtnSecondaryText}>Main Menu</Text>
+                          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonsContainer}>
@@ -45,8 +68,20 @@ export default function MenuScreen({ generateGame, isGenerating, onOpenSettings 
               disabled={isGenerating}
               activeOpacity={0.7}
             >
-              <Play color="#a1a1aa" size={20} />
-              <Text style={styles.menuButtonText}>{diff}</Text>
+              <View style={{ alignItems: 'center', gap: 4 }}>
+                <Text style={styles.menuButtonText}>{diff}</Text>
+                
+                {/* Eğer o zorlukta bir rekor varsa altında göster */}
+                {bestTimes[diff] !== null ? (
+                <Text style={styles.bestTimeText}>
+                  Best Time: {formatTime(bestTimes[diff])}
+                </Text>
+              ) : (
+                <Text style={[styles.bestTimeText, { color: '#71717a' }]}>
+                  No record yet
+                </Text>
+              )}
+              </View>
             </TouchableOpacity>
           ))}
         </View>

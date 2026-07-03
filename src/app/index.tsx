@@ -2,15 +2,28 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, SafeAreaView, StatusBar, Modal } from 'react-native';
 import { Eraser, Heart, Sparkles, Eye, EyeOff, Home, PaintBucket, MousePointer2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import * as NavigationBar from 'expo-navigation-bar';
 // --- BİLEŞEN VE ARAÇ İÇE AKTARIMLARI ---
 import MenuScreen from '../components/MenuScreen';
 import SettingsScreen from '../components/SettingsScreen';
+import CreditsScreen from '../components/CreditsScreen';
 import { COLORS, BASE_SOLVED } from '../constants/constants';
 import { countSolutions } from '../constants/gameLogic';
 import { styles } from '../styles';
+import AdBanner from '../components/AdBanner'; // <-- Bunu ekle
+import * as SystemUI from 'expo-system-ui';
 
+
+
+export const printmes = (mes: string) =>{
+    console.log(mes);
+  }
 export default function Index() {
+  const [bestTimes, setBestTimes] = useState<Record<string, number | null>>({
+  Easy: null,
+  Medium: null,
+  Hard: null
+});
   const [screen, setScreen] = useState<string>('menu');
   const [difficulty, setDifficulty] = useState<string>('Medium');
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -22,7 +35,7 @@ export default function Index() {
   const [mistakes, setMistakes] = useState<number>(0);
   const [showConflicts, setShowConflicts] = useState<boolean>(true);
 
-  const [inputMode, setInputMode] = useState<string>('paint');
+  const [inputMode, setInputMode] = useState<string>('cell');
   const [selectedColor, setSelectedColor] = useState<number>(1);
   const [selectedCell, setSelectedCell] = useState<number | null>(null);
 
@@ -34,6 +47,26 @@ export default function Index() {
     const s = (seconds % 60).toString().padStart(2, '0');
     return `${m}:${s}`;
   };
+useEffect(() => {
+  const loadBestTimes = async () => {
+    try {
+      const saved = await AsyncStorage.getItem('colordoku_best_times');
+      if (saved) {
+        setBestTimes(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('Rekorlar yüklenemedi:', error);
+    }
+  };
+  loadBestTimes();
+}, []);
+
+
+useEffect(() => {
+    // Uygulamanın en alt (root) arka planını koyu tema rengine zorluyoruz
+    // Bu sayede alttaki veya üstteki beyaz boşluklar tamamen kapanır
+    SystemUI.setBackgroundColorAsync('#18181b'); 
+  }, []);
 
   // Zamanlayıcı (Timer)
   useEffect(() => {
@@ -71,7 +104,7 @@ export default function Index() {
       console.log('Error saving settings:', e);
     }
   };
-
+  
   const generateGame = (diff: string) => {
     setIsGenerating(true);
     setTimeout(() => {
@@ -135,17 +168,36 @@ export default function Index() {
   }, [board, showConflicts]);
 
   useEffect(() => {
-    if (screen !== 'playing') return;
-    if (mistakes >= 3) {
-      setTimeout(() => setScreen('gameover'), 500);
-      return;
-    }
-    const isComplete = !board.includes(0);
-    const hasErrors = board.some((val, i) => val !== 0 && val !== solvedBoard[i]);
-    if (isComplete && !hasErrors) {
-      setTimeout(() => setScreen('victory'), 500);
-    }
-  }, [board, mistakes, solvedBoard, screen]);
+  if (screen !== 'playing') return;
+  
+  if (mistakes >= 3) {
+    setTimeout(() => setScreen('gameover'), 500);
+    return;
+  }
+  
+  const isComplete = !board.includes(0);
+  const hasErrors = board.some((val, i) => val !== 0 && val !== solvedBoard[i]);
+  
+  if (isComplete && !hasErrors) {
+    setTimeout(() => {
+      setScreen('victory');
+      
+      // Rekor Kaydetme Mantığı
+      setBestTimes(prev => {
+        const currentBest = prev[difficulty];
+        // Eğer o anki süre mevcut rekordan daha düşükse (daha hızlıysa) veya rekor yoksa kaydet
+        if (currentBest === null || timeElapsed < currentBest) {
+          const newBest = { ...prev, [difficulty]: timeElapsed };
+          AsyncStorage.setItem('colordoku_best_times', JSON.stringify(newBest));
+          return newBest;
+        }
+        return prev;
+      });
+      
+    }, 500);
+  }
+}, [board, mistakes, solvedBoard, screen, timeElapsed, difficulty]); 
+// timeElapsed ve difficulty bağımlılıklarını eklemeyi unutma!
 
   const handleCellClick = (index: number) => {
     if (fixedCells[index]) return;
@@ -196,21 +248,32 @@ export default function Index() {
 
   // --- EKRAN YÖNETİMİ ---
 
-  if (screen === 'menu') {
-    return (
-      <MenuScreen 
-        generateGame={generateGame} 
-        isGenerating={isGenerating} 
-        onOpenSettings={() => setScreen('settings')} 
-      />
-    );
-  }
+ if (screen === 'menu') {
+  return (
+    <MenuScreen
+      generateGame={generateGame}
+      isGenerating={isGenerating}
+      onOpenSettings={() => setScreen('settings')} // setScreen={setScreen} YERİNE BÖYLE OLMALI
+      onOpenCredits={() => setScreen('credits')}
+      bestTimes={bestTimes}
+    />
+  );
+}
 
   if (screen === 'settings') {
     return (
       <SettingsScreen
         inputMode={inputMode}
         onModeChange={handleModeChange}
+        onClose={() => setScreen('menu')}
+      />
+    );
+  }
+
+    if (screen === 'credits') {
+    return (
+      <CreditsScreen
+       
         onClose={() => setScreen('menu')}
       />
     );
@@ -377,6 +440,10 @@ export default function Index() {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={{ alignItems: 'center', width: '100%', marginTop: 10 }}>
+          {/*<AdBanner /> */}
+          <AdBanner />
         </View>
       </View>
     </SafeAreaView>
