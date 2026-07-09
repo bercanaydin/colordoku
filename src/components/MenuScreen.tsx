@@ -1,10 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
-import { Play, Settings, Info } from 'lucide-react-native';
-import { styles } from '../styles';
+import { Info, Settings } from 'lucide-react-native';
+import { ActivityIndicator, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS } from '../constants/constants';
 import { formatTime } from '../constants/gameLogic'; // YENİ EKLENDİ
-import {printmes} from  '../app/index';
+import { styles } from '../styles';
 
 interface MenuScreenProps {
   generateGame: (diff: string) => void;
@@ -48,9 +46,7 @@ export default function MenuScreen({
             Color<Text style={styles.titleTextBold}>doku</Text>
           </Text>
           <Text style={styles.subtitleText}>Logic puzzle with colors</Text>
-          <TouchableOpacity onPress={() => printmes('menu')} style={styles.resBtnSecondary}>
-                            <Text style={styles.resBtnSecondaryText}>Main Menu</Text>
-                          </TouchableOpacity>
+          
         </View>
 
         <View style={styles.buttonsContainer}>
