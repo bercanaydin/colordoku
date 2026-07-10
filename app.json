@@ -52,13 +52,13 @@
           "style": "dark"
         }
       ],
-     [
-      "react-native-google-mobile-ads",
-      {
-        "androidAppId": "ca-app-pub-7345089833984227~2159323692",
-        "iosAppId": "ca-app-pub-7345089833984227~2159323692"
-      }
-    ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-7345089833984227~2159323692",
+          "iosAppId": "ca-app-pub-7345089833984227~2159323692"
+        }
+      ],
       [
         "expo-build-properties",
         {
@@ -66,13 +66,16 @@
             "enableProguardInReleaseBuilds": true,
             "extraProguardRules": "-keep class com.google.android.gms.** { *; }",
             "enableMinifyInReleaseBuilds": true,
-            "usesCleartextTraffic": true
+            "usesCleartextTraffic": true,
+            "googleServicesFile": "./google-services.json"
           }
         }
       ],
       "expo-font",
       "expo-image",
-      "expo-web-browser"
+      "expo-web-browser",
+      "@react-native-firebase/app",
+      "@react-native-firebase/analytics"
     ],
     "experiments": {
       "typedRoutes": true,

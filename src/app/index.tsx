@@ -1,8 +1,6 @@
+import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import { ActivityIndicator, Modal, SafeAreaView, StatusBar, Text, View } from 'react-native';
-// --- BİLEŞEN VE ARAÇ İÇE AKTARIMLARI ---
-import * as SystemUI from 'expo-system-ui';
-import AdBanner from "../components/AdBanner";
 import CreditsScreen from '../components/CreditsScreen';
 import GameBoard from '../components/GameBoard';
 import GameControls from '../components/GameControls';
@@ -12,11 +10,20 @@ import MenuScreen from '../components/MenuScreen';
 import SettingsScreen from '../components/SettingsScreen';
 import { useGameLogic } from '../hooks/useGameLogic';
 import { styles } from '../styles';
+// --- BİLEŞEN VE ARAÇ İÇE AKTARIMLARI ---
+//import '@react-native-firebase/analytics'; // Analytics'i aktif eder
+//import analytics from '@react-native-firebase/analytics';
 export const printmes = (mes: string) =>{
     console.log(mes);
   }
+
+
+
+ {/*}  if (!firebase.apps.length) {
+  firebase.initializeApp();
+} */}
 export default function Index() {
- 
+  
   const {
     bestTimes, screen, setScreen, difficulty, isGenerating,
     board, solvedBoard, fixedCells, mistakes,
@@ -37,19 +44,12 @@ useEffect(() => {
 const rewardedAdUnitId =  'ca-app-pub-7345089833984227/9971050865'; // <-- XXXXXX YAZAN YERE ADMOB'DAN ALDIĞIN ÖDÜLLÜ REKLAM BİRİMİ ID'Sİ GELECEK
 
 
-  // Ayarları Yükle
- 
-
-  
-  
-
-  
-
 
   useEffect(() => {
   if (screen !== 'playing') return;
   
   if (mistakes >= 3) {
+
     setTimeout(() => setScreen('gameover'), 500);
     return;
   }
@@ -58,9 +58,13 @@ const rewardedAdUnitId =  'ca-app-pub-7345089833984227/9971050865'; // <-- XXXXX
   const hasErrors = board.some((val, i) => val !== 0 && val !== solvedBoard[i]);
   
   if (isComplete && !hasErrors) {
-    setTimeout(() => {
+    setTimeout(async () => {
       setScreen('victory');
-      
+  {/*    await analytics().logEvent('level_completed', {
+  difficulty: difficulty,         // 'Easy', 'Medium', 'Hard'
+  time_spent_seconds: timeElapsed, 
+  mistakes: mistakes
+});*/} 
       // Rekor Kaydetme Mantığı
     
       
@@ -162,7 +166,7 @@ const rewardedAdUnitId =  'ca-app-pub-7345089833984227/9971050865'; // <-- XXXXX
 
         <View style={{ alignItems: 'center', width: '100%', marginTop: 10 }}>
           {/*<AdBanner /> */}
-          <AdBanner /> 
+       
         </View>
       
       </View>

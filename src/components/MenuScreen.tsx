@@ -19,6 +19,8 @@ export default function MenuScreen({
   onOpenCredits,
   bestTimes // YENİ EKLENDİ
 }: MenuScreenProps) {
+
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#09090b" />

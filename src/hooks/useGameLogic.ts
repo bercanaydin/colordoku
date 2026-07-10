@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import '@react-native-firebase/analytics'; // Analytics'i aktif eder import analytics from '@react-native-firebase/analytics';
 import { useEffect, useMemo, useState } from 'react';
 import { BASE_SOLVED } from '../constants/constants';
 import { countSolutions } from '../constants/gameLogic';
-
 export function useGameLogic() {
   const [bestTimes, setBestTimes] = useState<Record<string, number | null>>({
     Easy: null,
@@ -74,7 +74,8 @@ export function useGameLogic() {
     }
   };
 
-  const generateGame = (diff: string) => {
+  const generateGame =  async (diff: string) => {
+    //await analytics().logEvent('level_started', { difficulty: diff});
     setIsGenerating(true);
     setTimeout(() => {
       const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5);

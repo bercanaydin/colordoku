@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1086854215872",
+    "project_id": "colrodoku",
+    "storage_bucket": "colrodoku.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086854215872:android:3ffc8c398baca2cd439525",
+        "android_client_info": {
+          "package_name": "com.bercanayd.colordoku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Jy1DiMARXSBQ8kItGFCbS8NEtakgXYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
