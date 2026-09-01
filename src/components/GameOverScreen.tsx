@@ -1,7 +1,8 @@
 import { Heart, Sparkles } from 'lucide-react-native';
+import { useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { saveWorldRecord } from "../hooks/getscores";
 import { styles } from '../styles';
-
 // isVictory prop'unu ekledik
 interface GameResultScreenProps {
   difficulty: string;
@@ -24,6 +25,15 @@ export default function GameResultScreen({
   timer,
   isVictory,
 }: GameResultScreenProps) {
+  
+
+
+  useEffect(() => {
+    if (isVictory && difficulty === 'Zor') {
+      // Herkes için şimdilik sabit bir isim gönderiyoruz
+      saveWorldRecord('Colordoku Oyuncusu', timer, difficulty);
+    }
+  }, [isVictory, difficulty, timer]);
   return (
     <View style={styles.resultOverlay}>
       {/* Kazanma veya kaybetme durumuna göre arka plan rengi ve ikon değişiyor */}
