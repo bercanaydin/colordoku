@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('window');
 const BOARD_PADDING = 16;
@@ -39,13 +39,13 @@ export const styles = StyleSheet.create({
   menuContent: { width: '100%', maxWidth: 340, alignItems: 'center', gap: 40 },
   titleContainer: { alignItems: 'center' },
   titleColorsRow: { flexDirection: 'row', gap: 8, marginBottom: 16 },
-  titleColorBox: { width: 32, height: 32, borderRadius: 8, elevation: 5 },
-  titleText: { fontSize: 48, fontWeight: '300', color: '#f4f4f5', marginBottom: 8 },
+  titleColorBox: { width:48, height: 48, borderRadius: 8, elevation: 5 },
+  titleText: { fontSize:60, fontWeight: '300', color: '#f4f4f5', marginBottom: 8 },
   titleTextBold: { fontWeight: 'bold', color: '#71717a' },
   subtitleText: { color: '#a1a1aa', fontSize: 16 },
   buttonsContainer: { width: '100%', gap: 16, position: 'relative' },
-  menuButton: { width: '100%', paddingVertical: 16, backgroundColor: '#18181b', borderWidth: 1, borderColor: '#27272a', borderRadius: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12 },
-  menuButtonText: { fontSize: 18, fontWeight: '500', color: '#e4e4e7' },
+  menuButton: { width: '100%', paddingVertical: 16, backgroundColor: '#26262b', borderWidth: 2, borderColor: '#27272a', borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12 },
+  menuButtonText: { fontSize: 20, fontWeight: '500', color: '#e4e4e7' },
   disabledButton: { opacity: 0.5 },
   loadingOverlay: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(9, 9, 11, 0.3)', zIndex: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 16, gap: 12 },
   loadingText: { color: '#d4d4d8', fontSize: 14, fontWeight: '500' },

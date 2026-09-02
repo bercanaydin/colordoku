@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Linking, SafeAreaView, StatusBar } from 'react-native';
-import { Star, Code, Info, X } from 'lucide-react-native';
+import { Code, Info, Star, X } from 'lucide-react-native';
+import { Linking, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from '../styles';
 
 interface CreditsScreenProps {
@@ -42,7 +41,7 @@ export default function CreditsScreen({ onClose }: CreditsScreenProps) {
           </View>
           <View style={styles.settingTextWrap}>
             <Text style={styles.settingOptionTitle}>Developer</Text>
-            <Text style={styles.settingOptionDesc}>Bercan</Text>
+            <Text style={styles.settingOptionDesc}>Bercan Aydın</Text>
           </View>
         </View>
 

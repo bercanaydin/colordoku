@@ -26,10 +26,12 @@ export default function GameResultScreen({
   isVictory,
 }: GameResultScreenProps) {
   
-
+  useEffect(() => {
+      console.error('bassssss: ');
+  })
 
   useEffect(() => {
-    if (isVictory && difficulty === 'Zor') {
+    if (isVictory && difficulty === 'Easy') {
       // Herkes için şimdilik sabit bir isim gönderiyoruz
       saveWorldRecord('Colordoku Oyuncusu', timer, difficulty);
     }

@@ -1,6 +1,7 @@
 import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import { ActivityIndicator, Modal, SafeAreaView, StatusBar, Text, View } from 'react-native';
+import AdBanner from "../components/AdBanner";
 import CreditsScreen from '../components/CreditsScreen';
 import GameBoard from '../components/GameBoard';
 import GameControls from '../components/GameControls';
@@ -166,7 +167,7 @@ const rewardedAdUnitId =  'ca-app-pub-7345089833984227/9971050865'; // <-- XXXXX
 
         <View style={{ alignItems: 'center', width: '100%', marginTop: 10 }}>
           {/*<AdBanner /> */}
-       
+       <AdBanner />
         </View>
       
       </View>
